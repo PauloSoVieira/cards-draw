@@ -1,0 +1,257 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #694b4b;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+}
+
+.card {
+  margin: 5px;
+  height: 400px;
+  width: 280px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 20px;
+  position: relative;
+}
+
+#backcard {
+  height: 400px;
+  width: 280px;
+  background-color: white;
+  border-radius: 20px;
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+}
+
+.card:hover #backcard {
+  opacity: 1;
+  z-index: 1;
+}
+
+.corner {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+}
+.top-left {
+  display: flex;
+  flex-direction: column;
+  top: 10px;
+  left: 10px;
+}
+.bottom-right {
+  display: flex;
+  flex-direction: column;
+  bottom: 10px;
+  right: 10px;
+  transform: rotate(180deg);
+}
+.center-symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+}
+
+.spanSymbol {
+  font-size: 40px;
+  margin-top: -10px;
+}
+
+.SymbolInvert {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.symbols {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 80%;
+  width: 80%;
+  margin: 10% auto;
+}
+
+.center-top {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.symbolOfFour {
+  font-size: 80px;
+}
+
+.center-down {
+  position: absolute;
+  bottom: 15%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.invertedFour {
+  font-size: 80px;
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.center-center {
+  position: absolute;
+  bottom: 40%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 25%;
+}
+
+.center-six-center {
+  position: absolute;
+  top: 37%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.midle-seven-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 25%;
+  top: 26%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.midle-eight-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 0 25%;
+  bottom: 28%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.center-nine-top {
+  position: absolute;
+  top: 10%;
+  left: -10px;
+  right: -10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.center-nine-midle-top {
+  position: absolute;
+  top: 28%;
+  left: -10px;
+  right: -10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.center-nine-midle-bottom {
+  position: absolute;
+  bottom: 28%;
+  left: -10px;
+  right: -10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.center-nine-bottom-bottom {
+  position: absolute;
+  bottom: 10%;
+  left: -10px;
+  right: -10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25%;
+}
+
+.center-nine-center {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25%;
+  left: 0;
+  right: 0;
+  top: 35%;
+}
+
+.center-ten-top-center {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25%;
+  left: 0;
+  right: 0;
+  top: 20%;
+}
+
+.center-ten-bottom-center {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25%;
+  left: 0;
+  right: 0;
+  bottom: 20%;
+}
+
+.image-config {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 15%;
+  margin-left: 20%;
+  margin-right: 20%;
+  height: 70%;
+}
+
+.image-config img {
+  position: absolute;
+  width: 100%;
+}
+
+.ola {
+  position: relative;
+
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 40%;
+}
