@@ -71,10 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (selectedCard) {
       const cardClone = selectedCard.cloneNode(true);
       cardClone.classList.add("displayed-card");
-      if (isDrawCard) {
-        cardClone.style.position = "absolute";
-        cardClone.style.top = "50px";
-      }
       playerCardContainer.appendChild(cardClone);
     }
     updateCardsLeftDisplay();
@@ -111,27 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
           isDrawing = false;
         }, 1000);
       } else {
-        const drawCard1 = drawCard(player1Deck, player1CardContainer, true);
-        const drawCard2 = drawCard(player2Deck, player2CardContainer, true);
-
-        if (drawCard1 && drawCard2) {
-          if (drawCard1.value > drawCard2.value) {
-            player1Deck.unshift(card1, card2, drawCard1, drawCard2);
-          } else if (drawCard1.value < drawCard2.value) {
-            player2Deck.unshift(card1, card2, drawCard1, drawCard2);
-          } else {
-            player1Deck.unshift(card1, drawCard1);
-            player2Deck.unshift(card2, drawCard2);
-          }
-          clearContainer(player1CardContainer);
-          clearContainer(player2CardContainer);
-          isDrawing = false;
-        } else {
-          player1Deck.unshift(card1);
-          player2Deck.unshift(card2);
-          isDrawing = false;
-        }
-        updateCardsLeftDisplay();
+        alert(
+          "War! Both players drew cards of equal value. Click 'Draw Cards' to continue."
+        );
+        player1Deck.unshift(card1);
+        player2Deck.unshift(card2);
+        isDrawing = false;
       }
       updateCardsLeftDisplay();
     }
