@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>War Game</title>
+    <link rel="stylesheet" href="./warStyle.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="player-field" id="player1-field">
+        <div class="warGameLogo">
+          WarGame
+          <br />
+          <img
+            src="./cropped-cropped-Logo_The_Wargame_Explorer_retina copy 2.png"
+            alt="game-symbol"
+          />
+        </div>
+        <div class="deck" id="player1-deck"></div>
+      </div>
+      <div class="middle-field">
+        <div class="played-card" id="player1-card"></div>
+        <div class="played-card" id="player2-card"></div>
+      </div>
+      <div class="player-field" id="player2-field">
+        <div class="deck" id="player2-deck"></div>
+      </div>
+    </div>
+    <div class="score-display">
+      <div id="player1-score">Player 1: 0</div>
+      <div id="player2-score">Player 2: 0</div>
+    </div>
+    <button id="drawButton">Draw Cards</button>
+
+    <script src="game.js"></script>
+  </body>
+</html>
