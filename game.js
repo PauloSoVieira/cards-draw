@@ -98,7 +98,7 @@ const initializeCardElements = () => {
   });
 };
 
-// Draws a card from the deck 
+// Draws a card from the deck
 const drawCard = (playerDeck, playerCardContainer, isNewTieCard) => {
   if (playerDeck.length === 0) {
     return null;
@@ -108,11 +108,8 @@ const drawCard = (playerDeck, playerCardContainer, isNewTieCard) => {
   if (selectedCard) {
     const cardClone = selectedCard.cloneNode(true);
     cardClone.classList.add("displayed-card");
-    cardClone.style.position = isNewTieCard ? "absolute" : "relative";
-    cardClone.style.zIndex = isNewTieCard ? "40" : "20";
     if (isNewTieCard) {
-      cardClone.style.top = "30%";
-      cardClone.style.left = "0";
+      cardClone.classList.add("tie-card");
     }
     playerCardContainer.appendChild(cardClone);
   }

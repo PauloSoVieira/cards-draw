@@ -248,6 +248,18 @@
   background-size: 100%;
   z-index: 10;
 }
+
+.displayed-card {
+  position: relative;
+  z-index: 20;
+}
+
+.tie-card {
+  position: absolute;
+  z-index: 40;
+  top: 30%;
+  left: 0;
+}
 /* Media Queries */
 @media screen and (max-width: 1310px) {
   .displayed-card {
