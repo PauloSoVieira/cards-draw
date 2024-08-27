@@ -164,7 +164,8 @@ html {
   width: 280px;
   scale: 0.6;
   position: absolute;
-  left: 10%;
+  left: 14%;
+  bottom: -5%;
 }
 
 #player1-deck {
@@ -172,7 +173,8 @@ html {
   width: 280px;
   scale: 0.6;
   position: absolute;
-  right: 10%;
+  right: 14%;
+  top: -5%;
 }
 
 .displayed-card {
