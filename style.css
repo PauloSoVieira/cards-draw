@@ -6,6 +6,7 @@
   align-items: center;
   gap: 5px;
   padding: 10px;
+  display: none;
 }
 
 /* Estilos base para cartões */
@@ -28,19 +29,6 @@
     rgb(221, 221, 212),
     #e0eafc
   );
-}
-
-.flip-card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  transition: transform 0.3s;
-  transform-style: preserve-3d;
-}
-
-.card:hover .flip-card {
-  transform: rotateY(180deg);
 }
 
 .backcard {
@@ -322,6 +310,52 @@
   border-radius: 5px;
 }
 
+@keyframes slidefull {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.score-display-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.score-display {
+  animation: slidefull 20s linear infinite alternate;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(500px);
+  }
+}
+
+.warGameLogo {
+  animation: bounce 30s ease infinite;
+}
+
+@keyframes slideVertical {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(calc(100vh - 100%));
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
 /* Media Queries */
 @media screen and (max-width: 1310px) {
   .displayed-card {
@@ -341,10 +375,13 @@
   }
 }
 
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 768px) {
   #restartButton,
   #drawButton {
     position: relative !important;
+  }
+  .score-display {
+    font-size: 16px !important;
   }
 }
 
@@ -361,5 +398,62 @@
     top: 1em;
     width: 90%;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .displayed-card {
+    scale: 0.35 !important;
+  }
+  #player1-deck,
+  #player2-deck {
+    scale: 0.35 !important;
+  }
+
+  #player1-card {
+    left: 0% !important;
+    top: -10% !important;
+  }
+  #player2-card {
+    bottom: -12% !important;
+    left: 36% !important;
+  }
+  #promptContent {
+    width: 80%;
+    font-size: 16px;
+  }
+  #promptInput {
+    font-size: 12px !important;
+  }
+  #promptSubmit {
+    margin: 0px;
+    padding: 10px 30px;
+  }
+
+  .score-display-container {
+    width: auto;
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
+
+  .score-display {
+    animation: slideVertical 20s linear infinite alternate;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    transform: rotate(90deg);
+    white-space: nowrap;
+    width: auto;
+    padding: 10px;
+    display: inline-block;
+    letter-spacing: -2px;
+    word-spacing: 10px;
+  }
+  #player1-score-value,
+  #player2-score-value {
+    writing-mode: horizontal-tb;
+    text-orientation: upright;
+    font-size: 1.2em;
+    font-weight: bold;
   }
 }
