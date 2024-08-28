@@ -14,6 +14,7 @@ const drawButton = getElement("drawButton");
 const player1ScoreValue = getElement("player1-score-value");
 const player2ScoreValue = getElement("player2-score-value");
 const restartButton = getElement("restartButton");
+const forceTieButton = getElement("forceTieButton");
 
 // Game variables
 let player1Deck = [];
@@ -80,7 +81,7 @@ const createShuffledDeck = () => {
     }
   }
 
-  // Fisher-Yates shuffle
+  // shuffle
   for (let i = deck.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -127,30 +128,125 @@ const handleWin = (winningPlayer, losingPlayer) => {
     clearContainer(player2CardContainer);
     removeCardOverlays();
     isDrawing = false;
+    drawButton.disabled = false;
   }, 1000);
 };
+/*
 
-// Game Initialization
-const initializeGame = () => {
-  drawButton.style.display = "block";
-  drawButton.disabled = false;
-  restartButton.style.display = "none";
-
-  const deck = createShuffledDeck();
-
-  player1Deck = deck.slice(0, CARDS_PER_PLAYER);
-  player2Deck = deck.slice(CARDS_PER_PLAYER);
+const forceTie = () => {
+  if (
+    player1Deck.length < FACE_DOWN_CARDS + 2 ||
+    player2Deck.length < FACE_DOWN_CARDS + 2
+  ) {
+    alert("Not enough cards to force a tie!");
+    return;
+  }
 
   clearContainer(player1CardContainer);
   clearContainer(player2CardContainer);
+  removeCardOverlays();
+
+  // Draw initial cards
+  const card1 = drawCard(player1Deck, player1CardContainer, false);
+  const card2 = drawCard(player2Deck, player2CardContainer, false);
+
+  // Ensure the cards have the same value
+  card2.value = card1.value;
+
+  tableCards.push(card1, card2);
+
+  // Add face-down cards
+  for (let i = 0; i < FACE_DOWN_CARDS; i++) {
+    tableCards.push(player1Deck.shift(), player2Deck.shift());
+  }
+
+  isTie = true;
+  isDrawing = false;
+
+  setTimeout(() => {
+    player1CardContainer
+      .querySelectorAll(".displayed-card")
+      .forEach(createCardOverlay);
+    player2CardContainer
+      .querySelectorAll(".displayed-card")
+      .forEach(createCardOverlay);
+  }, 1000);
+
   updateCardsLeftDisplay();
-  initializeCardElements();
+  console.log("Tie forced! Table cards:", tableCards);
 };
+forceTieButton.addEventListener("click", forceTie);
+
+
+
+*/
+
+let player1Name = "Player 1";
+let player2Name = "Player 2";
+
+function customPrompt(message, defaultValue, callback) {
+  const promptElement = document.getElementById("customPrompt");
+  const messageElement = document.getElementById("promptMessage");
+  const inputElement = document.getElementById("promptInput");
+  const submitButton = document.getElementById("promptSubmit");
+
+  messageElement.textContent = message;
+  inputElement.value = defaultValue;
+  promptElement.style.display = "flex";
+
+  submitButton.onclick = function () {
+    promptElement.style.display = "none";
+    const result = inputElement.value || defaultValue;
+    callback(result);
+  };
+}
+
+// Modify the getPlayerNames function to use callbacks
+function getPlayerNames(callback) {
+  customPrompt("Enter name for Player 1:", "Player 1", function (name1) {
+    player1Name = name1;
+    customPrompt("Enter name for Player 2:", "Player 2", function (name2) {
+      player2Name = name2;
+      updatePlayerNames();
+      callback();
+    });
+  });
+}
+
+// Function to update player names in the UI
+function updatePlayerNames() {
+  const player1Score = document.getElementById("player1-score");
+  const player2Score = document.getElementById("player2-score");
+  player1Score.textContent = `${player1Name} cards left: `;
+  player2Score.textContent = `${player2Name} cards left: `;
+}
+
+// Modify the initializeGame function
+function initializeGame() {
+  getPlayerNames(function () {
+    // The rest of your initialization code goes here
+    drawButton.style.display = "block";
+    drawButton.disabled = false;
+    restartButton.style.display = "none";
+    isDrawing = false;
+
+    const deck = createShuffledDeck();
+
+    player1Deck = deck.slice(0, CARDS_PER_PLAYER);
+    player2Deck = deck.slice(CARDS_PER_PLAYER);
+
+    clearContainer(player1CardContainer);
+    clearContainer(player2CardContainer);
+    initializeCardElements();
+    updateCardsLeftDisplay();
+  });
+}
 
 // Event Listeners
 drawButton.addEventListener("click", function () {
   if (isDrawing) return;
   isDrawing = true;
+  drawButton.disabled = true;
 
   if (!isTie) {
     clearContainer(player1CardContainer);
@@ -186,6 +282,7 @@ drawButton.addEventListener("click", function () {
           drawButton.disabled = true;
           drawButton.style.display = "none";
           restartButton.style.display = "block";
+          isDrawing = false;
           return;
         }
         /**  War both have enough cards   */
@@ -200,9 +297,13 @@ drawButton.addEventListener("click", function () {
           player2CardContainer
             .querySelectorAll(".displayed-card")
             .forEach(createCardOverlay);
+          isDrawing = false;
+          drawButton.disabled = false;
         }, 2000);
+      } else {
+        isDrawing = false;
+        drawButton.disabled = false;
       }
-      isDrawing = false;
     }
     updateCardsLeftDisplay();
   }
@@ -212,7 +313,6 @@ drawButton.addEventListener("click", function () {
     drawButton.style.display = "none";
     restartButton.style.display = "block";
     alert(player1Deck.length === 0 ? "Player 2 wins!" : "Player 1 wins!");
-  } else {
     isDrawing = false;
   }
 });
@@ -222,7 +322,10 @@ restartButton.addEventListener("click", function () {
   tableCards = [];
   removeCardOverlays();
   isTie = false;
+  isDrawing = false;
+  drawButton.disabled = false;
 });
 
 // Initialize the game
+getPlayerNames();
 initializeGame();
