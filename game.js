@@ -23,6 +23,8 @@ let tableCards = [];
 let isDrawing = false;
 let isTie = false;
 let cardElements = {};
+let player1Name = "Player 1";
+let player2Name = "Player 2";
 
 // Clears the container
 const clearContainer = (container) => {
@@ -31,8 +33,11 @@ const clearContainer = (container) => {
 
 // Updates the score display
 const updateCardsLeftDisplay = () => {
-  player1ScoreValue.textContent = player1Deck.length;
-  player2ScoreValue.textContent = player2Deck.length;
+  const player1Score = document.getElementById("player1-score");
+  const player2Score = document.getElementById("player2-score");
+
+  player1Score.innerHTML = `${player1Name} cards left: <span id="player1-score-value">${player1Deck.length}</span>`;
+  player2Score.innerHTML = `${player2Name} cards left: <span id="player2-score-value">${player2Deck.length}</span>`;
 };
 
 // Creates the card overlay ( for the tie card )
@@ -104,6 +109,8 @@ const drawCard = (playerDeck, playerCardContainer, isNewTieCard) => {
   if (playerDeck.length === 0) {
     return null;
   }
+  /* debugger; */
+
   const card = playerDeck.shift();
   const selectedCard = cardElements[`${card.suit}-${card.value}`];
   if (selectedCard) {
@@ -119,7 +126,7 @@ const drawCard = (playerDeck, playerCardContainer, isNewTieCard) => {
 };
 
 // Handles a win for the winning player and the losing player
-const handleWin = (winningPlayer, losingPlayer) => {
+const handleWin = (winningPlayer) => {
   winningPlayer.push(...tableCards);
   tableCards = [];
   isTie = false;
@@ -131,8 +138,8 @@ const handleWin = (winningPlayer, losingPlayer) => {
     drawButton.disabled = false;
   }, 1000);
 };
-/*
 
+/*
 const forceTie = () => {
   if (
     player1Deck.length < FACE_DOWN_CARDS + 2 ||
@@ -175,14 +182,7 @@ const forceTie = () => {
   updateCardsLeftDisplay();
   console.log("Tie forced! Table cards:", tableCards);
 };
-forceTieButton.addEventListener("click", forceTie);
-
-
-
-*/
-
-let player1Name = "Player 1";
-let player2Name = "Player 2";
+forceTieButton.addEventListener("click", forceTie); */
 
 function customPrompt(message, defaultValue, callback) {
   const promptElement = document.getElementById("customPrompt");
@@ -201,19 +201,20 @@ function customPrompt(message, defaultValue, callback) {
   };
 }
 
-// Modify the getPlayerNames function to use callbacks
+// getPlayerNames function
 function getPlayerNames(callback) {
   customPrompt("Enter name for Player 1:", "Player 1", function (name1) {
     player1Name = name1;
     customPrompt("Enter name for Player 2:", "Player 2", function (name2) {
       player2Name = name2;
       updatePlayerNames();
+
       callback();
     });
   });
 }
 
-// Function to update player names in the UI
+// Function to update player names in screen
 function updatePlayerNames() {
   const player1Score = document.getElementById("player1-score");
   const player2Score = document.getElementById("player2-score");
@@ -221,10 +222,9 @@ function updatePlayerNames() {
   player2Score.textContent = `${player2Name} cards left: `;
 }
 
-// Modify the initializeGame function
+// initializeGame function
 function initializeGame() {
   getPlayerNames(function () {
-    // The rest of your initialization code goes here
     drawButton.style.display = "block";
     drawButton.disabled = false;
     restartButton.style.display = "none";
@@ -322,10 +322,11 @@ restartButton.addEventListener("click", function () {
   tableCards = [];
   removeCardOverlays();
   isTie = false;
-  isDrawing = false;
+  isDrawing = true;
   drawButton.disabled = false;
 });
 
 // Initialize the game
+
 getPlayerNames();
 initializeGame();
